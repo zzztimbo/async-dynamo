@@ -22,9 +22,10 @@ env:
 after_success:
 - |
   echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}" && echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}" && test "${TRAVIS_PULL_REQUEST}" = 'false' && test "${TRAVIS_BRANCH}" = 'master' && sh "$TRAVIS_BUILD_DIR/.travis.credentials.sh" && git checkout master && git config --global user.email "zzztimbo@gmail.com" && git config --global user.name "zzztimbo" && sbt 'release with-defaults' && sbt bintrayRelease
+after_script:
+  - git config credential.helper "store --file=.git/credentials"
+  - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
 before_install:
-- git config credential.helper "store --file=.git/credentials"
-- echo "https://${GH_TOKEN}:@github.com" > .git/credentials
 - openssl aes-256-cbc -K $encrypted_f9231629250e_key -iv $encrypted_f9231629250e_iv
   -in deploy_rsa.enc -out /tmp/deploy_rsa -d
 - eval "$(ssh-agent -s)"
