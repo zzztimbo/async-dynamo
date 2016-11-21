@@ -21,8 +21,6 @@ import ReleaseTransformations._
 
 object BuildSettings {
 
-  lazy val `sbt-release` = project in file(".")
-
   // Basic settings for our app
   lazy val basicSettings = Seq[Setting[_]](
     organization  := "com.github.piotrga",
@@ -47,6 +45,7 @@ object BuildSettings {
       commitReleaseVersion,
       tagRelease,
       publishArtifacts,
+      releaseStepTask(bintrayRelease),
       setNextVersion,
       commitNextVersion,
       pushChanges
