@@ -20,11 +20,10 @@ env:
   - secure: hA5sWRPwN4/0ZdFl+TsbEdF4r2ilT+uUYOXooia25EFjDzwjaIvkpAvm2aZyiuxd4SdmkF/QQX5cOizBQDCR6Y3TTjXtPDipDBsLOtV0C36fzZOQYOIzhYvgM2/fmyXdyhIJEDh1UvlDQijY9kkLHKT3qYXPwaDIJCm0HG2jYdm+NhJXImgljMfRsa9JHh9J0+mUKLmdhl0GH6jqdSvvnQV3L8FzHLDgLC+NvdTK8lUYb0CpsUAt+CCAk60X6DqmWWVM58mdvove+ErwUGH/oMShQFnYsX/g6zX9n/Mqrph6kPNWmuo13rDt2YX1LW2ALfnoLbklXIts7rbLtbkm81myjlnTCTPMOLzjQQQLC1e41zouYB7bscwOrKzNHX+1UnLbBHRvDd/yFIogMWto2Sl/NlJpaHItr3LUnuJENCvwnwoLvluhC7uL1rzDrSvFUNAvnvZuZcvlwHFCWGC+sdJc/NwAbRUiEmjNC9gaDQyqRRqBVdWWjedD5YyfUd4D2KFbR221Y3M/UHdEN7sktcpOSDlyyAT2e1m+3e0Qc0C5CClx2LXo2MSRhLga7Ck2EefKftqTD7qFi+YPdmcqiBedLWCYrUObk9LyUDdHCiC47gg3opDhkJcLuob7mzZPF84CDC8E2Dt5gezPJbFm2xPHsR6dTctZGODzP91e7yI=
   - secure: n2Q4qfQLyU/9lCw2DvpvVMkR/Y/EvXL01ThuH7D9TixYV7LOF/IV1K4Z1kIdmUnVv8Elh6xW7xkBphuMRnWXsf8a7OXug0CiYphVBETqVDNGggD769eJ46paKEfhAYKyRpaBxD4IbDu7t0ynRWRX9sMD/FIbmVLlitBxEtLALetlJKIGgghaFqULYs2+BX/AjW7Ha7VgvL3RmNFvIz7MhY05nl9x5ldCeqhOMGIxYsGsBKx5QIMt2Stx9EUqP3GYd4OLfB+DXzehQ2GLXsdV82SfGw3LK/OdOYEENef3Xd1OQblc0arPDnXsZwxJdk8nsFg5Z6cRGwZj5FHame2m+vhnvh3hBl/M7kbU96OgomVJ1hmiT4Ics8S8WNhd2vWIRpwoxiqMlOgqXHyjR2BxkStBOvtx/Nc6sH2SZbYEh3RjNCQe6TymCq0ynwhazIbv2D4zjeL07og6h0BmWUhSgZBg3CLHiwvqONqpj1dQP5DNC9Sba5f7BhCqRQ0MXL60jl6q4eZvxSNeSj/CONMsHmVIXpppqi0d3m/y1dtwBFFqYkZY5+SMfMHJqC61VMKQkaHODRqh6Ing24XoWlk7U5Tzt78W7u6Pqw9fjRF76phcP5ThPP+aHaX8Uwv7jhlBsky0IvnrRa2ErN4D/IrLGTDiC7/ehyTwO9lEuIC5cBg=
 after_success:
-- |
-  echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}" && echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}" && test "${TRAVIS_PULL_REQUEST}" = 'false' && test "${TRAVIS_BRANCH}" = 'master' && sh "$TRAVIS_BUILD_DIR/.travis.credentials.sh" && git checkout master && git config --global user.email "zzztimbo@gmail.com" && git config --global user.name "zzztimbo" && sbt 'release with-defaults' && sbt bintrayRelease
-after_script:
   - git config credential.helper "store --file=.git/credentials"
   - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
+- |
+  echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}" && echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}" && test "${TRAVIS_PULL_REQUEST}" = 'false' && test "${TRAVIS_BRANCH}" = 'master' && sh "$TRAVIS_BUILD_DIR/.travis.credentials.sh" && git checkout master && git config --global user.email "zzztimbo@gmail.com" && git config --global user.name "zzztimbo" && sbt 'release with-defaults' && sbt bintrayRelease
 before_install:
 - openssl aes-256-cbc -K $encrypted_f9231629250e_key -iv $encrypted_f9231629250e_iv
   -in deploy_rsa.enc -out /tmp/deploy_rsa -d
