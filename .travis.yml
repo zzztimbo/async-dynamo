@@ -38,8 +38,7 @@ after_success:
       git checkout master &&
       git config --global user.email "zzztimbo@gmail.com" &&
       git config --global user.name "zzztimbo" &&
-      sbt 'release with-defaults' &&
-      sbt bintrayRelease
+      sbt 'release with-defaults'
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_f9231629250e_key -iv $encrypted_f9231629250e_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
