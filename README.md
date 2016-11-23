@@ -17,7 +17,7 @@ Add this to your `built.sbt` file:
 ```scala
 resolvers += Resolver.jcenterRepo
 
-libraryDependencies += "com.github.piotrga" %% "async-dynamo" % "2.0.1.12"
+libraryDependencies += "com.github.piotrga" %% "async-dynamo" % "2.0.3"
 ```
 
 ### Example
